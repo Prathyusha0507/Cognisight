@@ -1,0 +1,8 @@
+# Force LF for all configuration files to avoid Windows/Linux conflicts
+*.json text eol=lf
+*.py text eol=lf
+
+# Treat model weights as binary files (don't touch line endings)
+*.bin binary
+*.safetensors binary
+*.pt binary

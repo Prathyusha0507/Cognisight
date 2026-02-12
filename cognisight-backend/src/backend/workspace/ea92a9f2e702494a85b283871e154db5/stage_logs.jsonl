@@ -1,0 +1,1 @@
+{"ts": "2026-01-07T17:19:08.458783Z", "event": "start", "stage": "FLAN-T5", "model": "./models/flan-t5-large", "extra": {"sections": 8}}

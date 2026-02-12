@@ -1,0 +1,243 @@
+/* ✅ Terminal-FIXED.css - Premium IDE Terminal Styling */
+
+:root {
+  --terminal-bg: #1a1b26;
+  --terminal-header-bg: #1f2335;
+  --terminal-text: #c0caf5;
+  --terminal-accent: #7aa2f7;
+  --terminal-success: #9ece6a;
+  --terminal-warning: #e0af68;
+  --terminal-error: #f7768e;
+  --terminal-border: rgba(97, 97, 97, 0.2);
+}
+
+/* --- MAIN CONTAINER --- */
+.terminal-container {
+  /* position: relative is CRITICAL for the resize handle to sit at the top */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--terminal-bg);
+  border-radius: 12px 12px 0 0; /* Rounded top only usually looks best for bottom panels */
+  overflow: hidden;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--terminal-text);
+  border-top: 1px solid var(--terminal-border);
+  
+  /* IMPORTANT: Allow JS to control height, but prevent it from getting too small */
+  min-height: 100px;
+  max-height: 90vh;
+  transition: box-shadow 0.2s;
+}
+
+/* --- RESIZE HANDLE --- */
+.terminal-resize-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px; /* Large hit area for easy grabbing */
+  cursor: row-resize;
+  z-index: 100; /* Must be above the header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Pull it up slightly so it straddles the border */
+  transform: translateY(-50%); 
+}
+
+/* The visual line that appears on hover/drag */
+.terminal-resize-line {
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.terminal-resize-handle:hover .terminal-resize-line,
+.terminal-resize-handle:active .terminal-resize-line {
+  background: var(--terminal-accent);
+  box-shadow: 0 0 10px rgba(122, 162, 247, 0.6);
+  height: 3px;
+}
+
+/* --- HEADER & TABS --- */
+.terminal-header {
+  background: var(--terminal-header-bg);
+  border-bottom: 1px solid var(--terminal-border);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0; /* Prevent header from squishing */
+}
+
+.terminal-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  overflow-x: auto;
+}
+
+.terminal-tab {
+  background: rgba(0, 0, 0, 0.2);
+  color: #565f89;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.terminal-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--terminal-text);
+}
+
+.terminal-tab.active {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--terminal-accent);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.terminal-tab-close {
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-tab-close:hover {
+  opacity: 1;
+  background: rgba(247, 118, 142, 0.2);
+  color: var(--terminal-error);
+}
+
+.terminal-tab-new {
+  background: transparent;
+  border: none;
+  color: #565f89;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-tab-new:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--terminal-text);
+}
+
+.terminal-controls button {
+  background: transparent;
+  border: none;
+  color: #565f89;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.terminal-controls button:hover {
+  color: var(--terminal-error);
+  background: rgba(247, 118, 142, 0.1);
+}
+
+/* --- CONTENT AREA --- */
+.terminal-content {
+  flex: 1; /* Fills remaining height */
+  padding: 16px;
+  overflow-y: auto;
+  background: var(--terminal-bg);
+  scroll-behavior: smooth;
+}
+
+.terminal-line {
+  margin-bottom: 4px;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.terminal-line--input { color: #73daca; font-weight: 600; }
+.terminal-line--stdout { color: #c0caf5; }
+.terminal-line--stderr { color: var(--terminal-error); }
+.terminal-line--success { color: var(--terminal-success); }
+.terminal-line--info { color: var(--terminal-accent); }
+
+/* --- INPUT AREA --- */
+.terminal-input-form {
+  padding: 12px 16px;
+  background: var(--terminal-header-bg);
+  border-top: 1px solid var(--terminal-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.terminal-prompt {
+  display: flex;
+  gap: 0;
+  font-weight: 600;
+}
+
+.terminal-user { color: var(--terminal-accent); }
+.terminal-path { color: var(--terminal-success); }
+.terminal-dollar { color: #73daca; margin-left: 6px; }
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  caret-color: var(--terminal-accent);
+}
+
+/* --- EMPTY STATE --- */
+.terminal-empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #565f89;
+  gap: 16px;
+}
+
+.btn--primary {
+  background: var(--terminal-accent);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* --- SCROLLBAR --- */
+.terminal-content::-webkit-scrollbar { width: 10px; }
+.terminal-content::-webkit-scrollbar-track { background: var(--terminal-bg); }
+.terminal-content::-webkit-scrollbar-thumb {
+  background: #292e42;
+  border-radius: 5px;
+  border: 2px solid var(--terminal-bg);
+}
+.terminal-content::-webkit-scrollbar-thumb:hover { background: #3b4261; }

@@ -1,0 +1,35 @@
+# --- Python & Backend ---
+# This matches 'venv310' anywhere in your project
+**/venv310/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+# Keep your secrets safe
+.env
+.env.local
+
+# --- Node / React Frontend ---
+**/node_modules/
+**/dist/
+.eslintcache
+# Vite specific
+*.local
+
+# --- IDEs and OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Ignore the large weight files in ALL model subfolders
+**/models/**/*.bin
+**/models/**/*.safetensors
+**/models/**/*.pth
+**/models/**/*.model
+
+# But ALLOW the small config files so you know which model is which
+!**/models/**/config.json
+!**/models/**/tokenizer.json
